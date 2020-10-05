@@ -465,8 +465,8 @@ abstract class BuildingComp implements Posc, Teamc, Healthc, Buildingc, Timerc, 
         return block.consumes.itemFilters.get(item.id) && items.get(item) < getMaximumAccepted(item);
     }
 
-    public boolean acceptLiquid(Building source, Liquid liquid, float amount){
-        return block.hasLiquids && liquids.get(liquid) + amount < block.liquidCapacity && block.consumes.liquidfilters.get(liquid.id);
+    public boolean acceptLiquid(Building source, Liquid liquid){
+        return block.hasLiquids && block.consumes.liquidfilters.get(liquid.id);
     }
 
     public void handleLiquid(Building source, Liquid liquid, float amount){
@@ -496,9 +496,9 @@ abstract class BuildingComp implements Posc, Teamc, Healthc, Buildingc, Timerc, 
     }
 
     public void transferLiquid(Building next, float amount, Liquid liquid){
-        float flow = Math.min(next.block.liquidCapacity - next.liquids.get(liquid) - 0.001f, amount);
+        float flow = Math.min(next.block.liquidCapacity - next.liquids.get(liquid), amount);
 
-        if(next.acceptLiquid(self(), liquid, flow)){
+        if(next.acceptLiquid(self(), liquid)){
             next.handleLiquid(self(), liquid, flow);
             liquids.remove(liquid, flow);
         }
@@ -528,9 +528,9 @@ abstract class BuildingComp implements Posc, Teamc, Healthc, Buildingc, Timerc, 
             float ofract = next.liquids.get(liquid) / next.block.liquidCapacity;
             float fract = liquids.get(liquid) / block.liquidCapacity * block.liquidPressure;
             float flow = Math.min(Mathf.clamp((fract - ofract) * (1f)) * (block.liquidCapacity), liquids.get(liquid));
-            flow = Math.min(flow, next.block.liquidCapacity - next.liquids.get(liquid) - 0.001f);
+            flow = Math.min(flow, next.block.liquidCapacity - next.liquids.get(liquid));
 
-            if(flow > 0f && ofract <= fract && next.acceptLiquid(self(), liquid, flow)){
+            if(flow > 0f && ofract <= fract && next.acceptLiquid(self(), liquid)){
                 next.handleLiquid(self(), liquid, flow);
                 liquids.remove(liquid, flow);
                 return flow;
@@ -1264,6 +1264,11 @@ abstract class BuildingComp implements Posc, Teamc, Healthc, Buildingc, Timerc, 
             enabled = !Mathf.zero((float)p1);
             enabledControlTime = timeToUncontrol;
         }
+    }
+
+    @Override
+    public void control(LAccess type, Object p1, double p2, double p3, double p4){
+
     }
 
     @Override

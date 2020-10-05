@@ -757,14 +757,14 @@ public class Blocks implements ContentList{
 
         plastaniumWall = new Wall("plastanium-wall"){{
             requirements(Category.defense, with(Items.plastanium, 5, Items.metaglass, 2));
-            health = 190 * wallHealthMultiplier;
+            health = 130 * wallHealthMultiplier;
             insulated = true;
             absorbLasers = true;
         }};
 
         plastaniumWallLarge = new Wall("plastanium-wall-large"){{
             requirements(Category.defense, ItemStack.mult(plastaniumWall.requirements, 4));
-            health = 190 * wallHealthMultiplier * 4;
+            health = 130 * wallHealthMultiplier * 4;
             size = 2;
             insulated = true;
             absorbLasers = true;
@@ -956,7 +956,7 @@ public class Blocks implements ContentList{
             requirements(Category.distribution, with(Items.plastanium, 1, Items.thorium, 1, Items.metaglass, 1));
             health = 180;
             speed = 0.08f;
-            displayedSpeed = 10f;
+            displayedSpeed = 11f;
         }};
 
         junction = new Junction("junction"){{
@@ -1740,7 +1740,7 @@ public class Blocks implements ContentList{
             health = 150 * size * size;
             consumes.add(new ConsumeLiquidFilter(liquid -> liquid.temperature <= 0.5f && liquid.flammability < 0.1f, 2f)).update(false).optional(true, true);
 
-            consumes.powerCond(10f, (TurretBuild entity) -> entity.target != null || (entity.logicControlled() && entity.logicShooting));
+            consumes.powerCond(10f, TurretBuild::isActive);
         }};
 
         spectre = new ItemTurret("spectre"){{
