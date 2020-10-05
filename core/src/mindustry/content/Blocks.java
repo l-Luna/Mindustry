@@ -53,7 +53,7 @@ public class Blocks implements ContentList{
 
     //defense
     copperWall, copperWallLarge, titaniumWall, titaniumWallLarge, plastaniumWall, plastaniumWallLarge, thoriumWall, thoriumWallLarge, door, doorLarge,
-    phaseWall, phaseWallLarge, surgeWall, surgeWallLarge, mender, mendProjector, overdriveProjector, overdriveDome, forceProjector, shockMine,
+    phaseWall, phaseWallLarge, surgeWall, surgeWallLarge, mender, mendProjector, overdriveProjector, overdriveDome, forceProjector, biomdome, shockMine,
     scrapWall, scrapWallLarge, scrapWallHuge, scrapWallGigantic, thruster, //ok, these names are getting ridiculous, but at least I don't have humongous walls yet
 
     //transport
@@ -906,6 +906,15 @@ public class Blocks implements ContentList{
 
             consumes.item(Items.phasefabric).boost();
             consumes.power(4f);
+        }};
+
+        biomdome = new Biodome("biodome"){{
+            requirements(Category.effect, with(Items.metaglass, 35, Items.graphite, 50, Items.titanium, 50));
+            size = 3;
+
+            consumes.item(Items.sporePod);
+            consumes.power(2f);
+            consumes.liquid(Liquids.water, 0.4f);
         }};
 
         shockMine = new ShockMine("shock-mine"){{

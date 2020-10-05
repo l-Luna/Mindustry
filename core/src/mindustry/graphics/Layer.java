@@ -70,6 +70,7 @@ public class Layer{
 
     //weather effects, e.g. rain and snow TODO draw before overlay UI?
     weather = 130,
+    weatherExclusion = 135,
 
     //light rendering *shaders used*
     light = 140,

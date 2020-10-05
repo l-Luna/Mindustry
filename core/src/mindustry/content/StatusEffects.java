@@ -10,7 +10,7 @@ import mindustry.type.*;
 import static mindustry.Vars.*;
 
 public class StatusEffects implements ContentList{
-    public static StatusEffect none, burning, freezing, unmoving, slow, wet, muddy, melting, sapped, tarred, overdrive, overclock, shielded, shocked, blasted, corroded, boss, sporeSlowed;
+    public static StatusEffect none, burning, freezing, unmoving, slow, wet, muddy, melting, sapped, tarred, overdrive, overclock, shielded, shocked, blasted, corroded, boss, sporeSlowed, weatherImmune;
 
     @Override
     public void load(){
@@ -148,5 +148,7 @@ public class StatusEffects implements ContentList{
         corroded = new StatusEffect("corroded"){{
             damage = 0.1f;
         }};
+
+        weatherImmune = new StatusEffect("weather-immune");
     }
 }

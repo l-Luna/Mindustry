@@ -198,7 +198,9 @@ public class Weathers implements ContentList{
                 float windx = state.windVector.x * speed, windy = state.windVector.y * speed;
 
                 for(Unit unit : Groups.unit){
-                    unit.impulse(windx, windy);
+                    if(!unit.hasEffect(StatusEffects.weatherImmune)){
+                        unit.impulse(windx, windy);
+                    }
                 }
             }
 
@@ -277,7 +279,9 @@ public class Weathers implements ContentList{
                 float windx = state.windVector.x * speed, windy = state.windVector.y * speed;
 
                 for(Unit unit : Groups.unit){
-                    unit.impulse(windx, windy);
+                    if(!unit.hasEffect(StatusEffects.weatherImmune)){
+                        unit.impulse(windx, windy);
+                    }
                 }
             }
 

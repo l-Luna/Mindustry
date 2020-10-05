@@ -4,6 +4,7 @@ import arc.*;
 import arc.files.*;
 import arc.fx.*;
 import arc.graphics.*;
+import arc.graphics.Pixmap.*;
 import arc.graphics.g2d.*;
 import arc.graphics.gl.*;
 import arc.math.*;
@@ -14,7 +15,9 @@ import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.graphics.g3d.*;
+import mindustry.type.*;
 import mindustry.ui.*;
+import mindustry.world.blocks.defense.*;
 
 import static arc.Core.*;
 import static mindustry.Vars.*;
@@ -255,7 +258,14 @@ public class Renderer implements ApplicationListener{
 
         blocks.drawBlocks();
 
-        Groups.draw.draw(Drawc::draw);
+        Groups.draw.draw(drawc -> {
+            // FIXME:   n o
+            if(!(drawc instanceof WeatherState)){
+                drawc.draw();
+            }
+        });
+
+        Draw.stencil(Biodome::drawWeatherExclusion, () -> Groups.weather.each(WeatherState::draw));
 
         Draw.reset();
         Draw.flush();
