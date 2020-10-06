@@ -15,6 +15,11 @@ import mindustry.world.*;
 
 public class Biodome extends Block{
     public static Seq<BiodomeBuild> biodomes = new Seq<>();
+    public Color vegetationColor = Color.valueOf("62AE7F");
+    public Color vegetationColorLight = Color.valueOf("84F491");
+
+    public @Load("@-middle") TextureRegion middleRegion;
+    public @Load("@-top") TextureRegion topRegion;
 
     public Biodome(String name){
         super(name);
@@ -71,7 +76,7 @@ public class Biodome extends Block{
         }
 
         public float radius(){
-            return 120;
+            return 150;
         }
 
         @Override
@@ -81,12 +86,15 @@ public class Biodome extends Block{
             if(drawer != null){
                 drawer.set(x, y);
             }
+
+            Drawf.liquid(middleRegion, x, y, power.status, vegetationColor);
+            Draw.rect(topRegion, x, y);
         }
 
         public void drawExclusion(){
             Draw.z(Layer.weatherExclusion);
             Draw.color(Color.clear);
-            Fill.poly(x, y, 12, radius());
+            Fill.circle(x, y, radius());
         }
 
         public void drawDome(){
@@ -101,7 +109,7 @@ public class Biodome extends Block{
                 Fill.poly(x, y, 12, radius);
                 Draw.alpha(1f);
                 for(int i = 0; i < 6; i++){
-                    Lines.poly(x + Mathf.sinDeg(Time.time() + (360 / 5f) * i) * 8, y + Mathf.cosDeg(Time.time() + (360 / 5f) * i) * 8, 12, radius);
+                    Lines.circle(x + Mathf.sinDeg(Time.time() + (360 / 5f) * i) * 8, y + Mathf.cosDeg(Time.time() + (360 / 5f) * i) * 8, radius);
                 }
             }
             Draw.reset();
