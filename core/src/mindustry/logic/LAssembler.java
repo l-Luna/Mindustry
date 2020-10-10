@@ -4,6 +4,7 @@ import arc.func.*;
 import arc.struct.*;
 import arc.util.*;
 import mindustry.*;
+import mindustry.content.*;
 import mindustry.gen.*;
 import mindustry.logic.LExecutor.*;
 import mindustry.logic.LStatements.*;
@@ -27,6 +28,8 @@ public class LAssembler{
         putConst("@time", 0);
         //currently controlled unit
         putConst("@unit", null);
+        //reference to self
+        putConst("@this", null);
 
         //add default constants
         putConst("false", 0);
@@ -48,6 +51,8 @@ public class LAssembler{
                 putConst("@" + block.name, block);
             }
         }
+
+        putConst("@air", Blocks.air);
 
         for(UnitType type : Vars.content.units()){
             putConst("@" + type.name, type);
